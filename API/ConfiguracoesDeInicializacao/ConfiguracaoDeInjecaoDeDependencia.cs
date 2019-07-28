@@ -5,6 +5,7 @@ using Biblioteca.Aplicacao.Livros.Consulta;
 using Biblioteca.Infra.AcessoADados.Repositorio;
 using Biblioteca.Infra.Log.AlteracaoDeEntidade;
 using Biblioteca.Infra.Log.LogsGerais;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NHibernate;
@@ -19,6 +20,8 @@ namespace Biblioteca.API.ConfiguracoesDeInicializacao
                 provider => new RegistrosDeLogs(configuration["Data:DefaultConnection:ConnectionString"]));
             services.AddScoped<LogsDeAlteracaoDeEntidade>();
             services.AddScoped<LogadorDeAlteracaoDeEntidade>();
+            services.AddScoped<SigningConfigurations>();
+            services.AddScoped<TokenConfigurations>();
             services.AddScoped<IInterceptor, LogInterceptor>();
             services.AddScoped<ILivroRepositorio, LivroRepositorio>();
             services.AddScoped<IAutorRepositorio, AutorRepositorio>();

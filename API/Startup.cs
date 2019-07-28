@@ -32,7 +32,7 @@ namespace Biblioteca.API
 
             cfg.AddIdentityMappingsForSqlServer();
 
-            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
                 {
                     options.Password.RequireDigit = true;
                     options.Password.RequireNonAlphanumeric = false;

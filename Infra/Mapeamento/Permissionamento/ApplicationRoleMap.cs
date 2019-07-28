@@ -1,9 +1,9 @@
-﻿using FluentNHibernate.Mapping;
-using Microsoft.AspNetCore.Identity;
+﻿using Biblioteca.Infra.Configuracoes.Orm.Permissionamento;
+using FluentNHibernate.Mapping;
 
 namespace Biblioteca.Infra.Mapeamento.Permissionamento
 {
-    public class ApplicationRoleMap : ClassMap<IdentityRole>
+    public class ApplicationRoleMap : ClassMap<ApplicationRole>
     {
         public ApplicationRoleMap()
         {

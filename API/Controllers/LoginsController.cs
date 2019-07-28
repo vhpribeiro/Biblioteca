@@ -19,6 +19,7 @@ namespace Biblioteca.API.Controllers
     public class LoginsController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<ApplicationRole> _roleManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly SigningConfigurations _signingConfigurations;
         private readonly TokenConfigurations _tokenConfigurations;
@@ -26,13 +27,14 @@ namespace Biblioteca.API.Controllers
 
         public LoginsController(UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager, SigningConfigurations signingConfigurations,
-            TokenConfigurations tokenConfigurations, ILogger<LoginsController> logger,)
+            TokenConfigurations tokenConfigurations, ILogger<LoginsController> logger, RoleManager<ApplicationRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _signingConfigurations = signingConfigurations;
             _tokenConfigurations = tokenConfigurations;
             _logger = logger;
+            _roleManager = roleManager;
         }
 
         [AllowAnonymous]
@@ -146,20 +148,20 @@ namespace Biblioteca.API.Controllers
         //    }
         //}
 
-        //[HttpPost]
-        //[AllowAnonymous]
-        //[Route("admin")]
-        //public async Task<OkResult> CriarAdmin()
-        //{
-        //    var admin = new IdentityRole {Name = "Admin", Id = "1"};
-        //    var resultado = await _roleManager.CreateAsync(admin);
-        //    if (resultado.Succeeded)
-        //    {
-        //        _logger.LogInformation("User created a new account with password.");
-        //        return Ok();
-        //    }
-        //    throw new Exception("Não foi possível criar essa role");
-        //}
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("admin")]
+        public async Task<OkResult> CriarAdmin()
+        {
+            var admin = new ApplicationRole { Name = "Admin", Id = "2" };
+            var resultado = await _roleManager.CreateAsync(admin);
+            if (resultado.Succeeded)
+            {
+                _logger.LogInformation("User created a new account with password.");
+                return Ok();
+            }
+            throw new Exception("Não foi possível criar essa role");
+        }
 
         private void AddErrors(IdentityResult result)
         {

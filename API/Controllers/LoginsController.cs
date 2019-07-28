@@ -151,7 +151,7 @@ namespace Biblioteca.API.Controllers
         [HttpPost]
         [AllowAnonymous]
         [Route("admin")]
-        public async Task<OkResult> CriarAdmin()
+        public async Task<OkResult> CriarPapel()
         {
             var admin = new ApplicationRole { Name = "Admin", Id = "2" };
             var resultado = await _roleManager.CreateAsync(admin);
@@ -161,6 +161,18 @@ namespace Biblioteca.API.Controllers
                 return Ok();
             }
             throw new Exception("Não foi possível criar essa role");
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("virarAdmin")]
+        public async Task<OkResult> CriarAdmin(UsuarioDto usuarioDto)
+        {
+            var usuario = await _userManager.FindByNameAsync(usuarioDto.UserID);
+
+            await _userManager.AddToRoleAsync(usuario, "Admin");
+
+            return Ok();
         }
 
         private void AddErrors(IdentityResult result)

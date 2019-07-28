@@ -7,10 +7,10 @@ namespace Biblioteca.Infra.Mapeamento.Permissionamento
     {
         public ApplicationRoleMap()
         {
-            Id(a => a.Id);
-            Map(a => a.ConcurrencyStamp);
-            Map(a => a.Name);
-            Map(a => a.NormalizedName);
+            Id(a => a.Id).Not.Nullable();
+            Map(a => a.ConcurrencyStamp).Nullable();
+            Map(a => a.Name).Nullable();
+            Map(a => a.NormalizedName).Nullable();
         }
     }
 }
